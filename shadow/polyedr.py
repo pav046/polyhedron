@@ -154,8 +154,6 @@ class Polyedr:
                     x, y, z = (float(x) for x in line.split())
                     self.vertexes.append(R3(x, y, z).rz(
                         alpha).ry(beta).rz(gamma) * c)
-                    #x, y, z = self.vertexes[-1].x/c, self.vertexes[-1].y/c, self.vertexes[-1].z/c,
-                    #print(x, y, z)
                 else:
                     # вспомогательный массив
                     buf = line.split()
