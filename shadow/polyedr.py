@@ -188,8 +188,9 @@ class Polyedr:
                 for _ in range(i):
                     tmp = self.edges[index_edge]
                     index_edge += 1
-                    if len(tmp.gaps) > 1 or (len(tmp.gaps) == 1 and
-                        0.0009 < tmp.gaps[0].fin - tmp.gaps[0].beg < 1):
+                    if len(tmp.gaps) > 1 or (len(tmp.gaps) == 1
+                                             and 0.0009 < tmp.gaps[0].fin
+                                             - tmp.gaps[0].beg < 1):
                         flag = True
                 if flag == True:
                     self.pdfacets.append(self.facets[index_facet])
