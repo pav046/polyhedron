@@ -125,8 +125,8 @@ class Polyedr:
     C = 0
 
     # Параметры конструктора: файл, задающий полиэдр
-    def __init__(self, file, l):
-
+    def __init__(self, file, j=0):
+        self.P = 0
         # списки вершин, рёбер и граней полиэдра
         self.vertexes, self.edges, self.facets,\
             self.pdfacets = [], [], [], []
@@ -144,7 +144,7 @@ class Polyedr:
                     self.C = c
                     # углы Эйлера, определяющие вращение
                     alpha, beta, gamma = (float(x) * pi / 180.0 for x in buf)
-                    if l == 1:
+                    if j == 1:
                         alpha, beta, gamma = 0.0, 0.0, 0.0
                 elif i == 1:
                     # во второй строке число вершин, граней и рёбер полиэдра
@@ -170,8 +170,8 @@ class Polyedr:
 
     # Метод изображения полиэдра и выявления граней
     # с частично видимыми рёбрами
-    def draw(self, tk, l):
-        if l == 0:
+    def draw(self, tk, j=0):
+        if j == 0:
             tk.clean()
             for e in self.edges:
                 for f in self.facets:
@@ -192,7 +192,7 @@ class Polyedr:
                                              and 0.0009 < tmp.gaps[0].fin
                                              - tmp.gaps[0].beg < 1):
                         flag = True
-                if flag == True:
+                if flag is True:
                     self.pdfacets.append(self.facets[index_facet])
                 index_facet += 1
             self.perimetr()
@@ -200,21 +200,19 @@ class Polyedr:
 
     # Нахождение периметра
     def perimetr(self):
-        self.P = 0.0
         for c in self.pdfacets:
             cx, cy = self.center_f(c)
             if not (-0.5 <= cx <= 0.5) or not (-0.5 <= cy <= 0.5):
                 self.P += self.f_per(c)
 
-
     # Нахождение центра грани
     def center_f(self, c):
-        l = len(c.vertexes)
+        length = len(c.vertexes)
         x, y = 0, 0
         for i in c.vertexes:
             x += i.x/self.C
             y += i.y/self.C
-        return x/l, y/l
+        return x/length, y/length
 
     # Нахождение периметра отдельной грани
     def f_per(self, c):
